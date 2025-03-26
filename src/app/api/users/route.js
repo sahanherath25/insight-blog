@@ -7,11 +7,9 @@ export const GET = async () => {
     try {
         //     Connect to DB
         await connectToDB();
-
         //     Get users From Prisma client
         // const users = await prisma.user.findMany({select: {"email":true,"name":true} });
         const users = await prisma.user.findMany();
-
 
         // TODO Return data with next Response
 

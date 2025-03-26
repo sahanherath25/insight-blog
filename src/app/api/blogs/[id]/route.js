@@ -69,6 +69,8 @@ export const DELETE =async(req,{params})=>{
 
     const {id}=await params
 
+    console.log("BLOG RECEVE TO MIDDLE WARE GOING TO DELETE ",id)
+
     if(!id){
         return NextResponse.json({message:"Please Provide ID of the Blog"},{status:404})
     }

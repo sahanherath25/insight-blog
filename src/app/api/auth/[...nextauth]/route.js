@@ -18,37 +18,51 @@ export const authOptions = {
                 email: {type: "text"},
                 password: {type: "password"}
             },
-            async authorize(credentials,req) {
-                if(!credentials|| !credentials.email||!credentials.password){
+            async authorize(credentials, req) {
+                if (!credentials || !credentials.email || !credentials.password) {
                     return null
                 }
                 try {
                     await connectToDB()
-                    const user=await prisma.user.findFirst({where:{email:credentials.email}})
+                    const user = await prisma.user.findFirst({where: {email: credentials.email}})
 
-                    if(!user)return null
-                    if(!user.password)return null
+                    if (!user) return null
+                    if (!user.password) return null
 
-                    const isPasswordMatch=await bcrypt.compare(credentials.password, user.password)
+                    const isPasswordMatch = await bcrypt.compare(credentials.password, user.password)
 
-                    console.log("PASSWORD MATCH ",isPasswordMatch)
+                    console.log("PASSWORD MATCH ", isPasswordMatch)
 
-                    if(!isPasswordMatch){
+                    if (!isPasswordMatch) {
                         return null
                     }
 
-                    return {...user,id:user.name}
+                    return {...user, id: user.id}
 
-                }catch (e) {
+                } catch (e) {
 
-                    console.error("ERROR ",e)
-                }finally {
+                    console.error("ERROR ", e)
+                } finally {
                     await prisma.$disconnect();
                 }
             }
         }),
     ],
     secret: process.env.NEXTAUTH_SECRET,
+
+    callbacks: {
+        // TODO params=== {session,user,token}
+         session({session, user, token}) {
+            if (session.user && token) {
+                session.user.id = token.sub
+            }
+             // console.log("TOKEN ",token)
+            // TODO Returning modified session
+
+            // console.log("MODIFIED SESSION:", session); // Debugging session data
+            return session
+        }
+    }
 
 }
 
