@@ -70,9 +70,7 @@ export const POST = async (req) => {
         } else {
             uploadedFile = null;
         }
-
         console.log("Blob ",uploadedFile)
-
         await connectToDB();
 
         const user = await prisma.user.findFirst({where: {id: userId}})
@@ -127,19 +125,19 @@ export const GET =async()=>{
     }
 }
 
-export const GET =async()=>{
-    try {
-        await connectToDB()
-        const blogs=await prisma.blog.findMany();
-
-        if(blogs.length > 0){
-            return NextResponse.json({message:"success",data:blogs},{status:200})
-        }
-
-    }catch (e) {
-        return NextResponse.json({message:"fail",error:e},{status:422})
-    }finally {
-
-        prisma.$disconnect();
-    }
-}
+// export const GET =async()=>{
+//     try {
+//         await connectToDB()
+//         const blogs=await prisma.blog.findMany();
+//
+//         if(blogs.length > 0){
+//             return NextResponse.json({message:"success",data:blogs},{status:200})
+//         }
+//
+//     }catch (e) {
+//         return NextResponse.json({message:"fail",error:e},{status:422})
+//     }finally {
+//
+//         prisma.$disconnect();
+//     }
+// }

@@ -12,7 +12,7 @@ export const GET=async()=>{
        console.log("CAREGORIES FOUND ",categories)
 
        if(categories.length>0){
-           return NextResponse.json({message:"success",...categories},{status:200});
+           return NextResponse.json({message:"success",data:categories},{status:200});
        }
 
        return NextResponse.json({message:"success",data:"No data"},{status:200});

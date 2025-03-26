@@ -1,16 +1,14 @@
 "use client"
-import LogoutButton from "@/components/LogOutButton";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
-
 import {useSession} from "next-auth/react";
 import {notFound} from "next/navigation";
+import Hero from "@/components/Hero";
+import Articles from "@/components/Articles";
+import React from "react";
 
 
 export default  function Home() {
 
     const {data,status}=  useSession()
-
 
     if(!data) return null
 
@@ -25,10 +23,13 @@ export default  function Home() {
     if(!data) return notFound()
 
     return (
-        <div>
-            <h1>My Main Page Hello</h1>
-            <h2>User Email     {email?email:null}</h2>
-            <h2>User Logged In {name?name:null}</h2>
+        <div className={"basis-1"}>
+            {/*<Logo/>*/}
+            <Hero/>
+            <Articles/>
+            {/*<h1>My Main Page Hello</h1>*/}
+            {/*<h2>User Email     {email?email:null}</h2>*/}
+            {/*<h2>User Logged In {name?name:null}</h2>*/}
         </div>
     );
 }
