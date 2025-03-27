@@ -48,10 +48,11 @@ function BlogArticles({initialBlogs}) {
     // }, []);
 
 
+    console.log("DATA LOADD ",blogs)
 
     return (
         <section className={"w-full bg-gray-200"}>
-            <Typography className={"text-center"} variant={"h2"}>All Blog Articles {data.length} </Typography>
+            <Typography className={"text-center"} variant={"h2"}>All Blog Articles {blogs.length} </Typography>
 
             <div className={"blog-container grid justify-stretch justify-items-center  mt-3.5 "}>
 
@@ -66,7 +67,7 @@ function BlogArticles({initialBlogs}) {
                                 transition={{duration: 0.5}}
                                 className="bg-white shadow-lg rounded-lg p-6 flex flex-col"
                             >
-                                <MUICard data={item}/>
+                                <MUICard blogs={item}/>
 
                             </motion.div>
                         ))
