@@ -11,7 +11,7 @@ const deleteBlog=async (id)=>{
 
     console.log("WE have the blog id t o delete",id)
     try {
-        const response=await axios.delete(`http://localhost:3000/api/blogs/${id}`)
+        const response=await axios.delete(`${NEXT_PUBLIC_API_URL}/api/blogs/${id}`)
     }catch (e) {
         console.log("ERROR DELETED ",e)
 

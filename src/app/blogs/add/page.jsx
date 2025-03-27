@@ -138,7 +138,7 @@ function AddBlogPage() {
         try {
             toast.loading("Sending your Data to the Database ", {id: "postData"})
 
-            await axios.post("http://localhost:3000/api/blogs", formData, {
+            await axios.post(`${NEXT_PUBLIC_API_URL}/api/blogs`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }

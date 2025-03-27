@@ -17,14 +17,14 @@ import ContentState from "draft-js/lib/ContentState";
 
 
 const getBlogDataById=async (id)=>{
-    const response=await axios.get(`http://localhost:3000/api/blogs/${id}`);
+    const response=await axios.get(`${NEXT_PUBLIC_API_URL}/api/blogs/${id}`);
     return response.data.data
 }
 
 const updateBlogData=async (id,postData)=>{
 
     try {
-        const response=await axios.put(`http://localhost:3000/api/blogs/${id}`, postData)
+        const response=await axios.put(`${NEXT_PUBLIC_API_URL}/api/blogs/${id}`, postData)
     }catch(error){
         console.log(error.message)
     }

@@ -19,7 +19,7 @@ function RegisterUserPage(props) {
 
         try {
             // TODO: Implement register logic
-            await axios.post(`http://localhost:3000/api/auth/register`,{
+            await axios.post(`${NEXT_PUBLIC_API_URL}/api/auth/register`,{
                 name:data.name,
                 email:data.email,
                 password:data.password
