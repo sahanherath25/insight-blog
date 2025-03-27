@@ -1,17 +1,16 @@
 import NextAuth from "next-auth"
-
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
-import {connectToDB} from "@/lib/helpers";
+import {connectToDB, verifyUserExists} from "@/lib/helpers";
 import prisma from "../../../../../prisma/index";
 import bcrypt from "bcryptjs";
 
 export const authOptions = {
     // Configure one or more authentication providers
     providers: [
-        GithubProvider({clientId: "", clientSecret: ""}),
-        GoogleProvider({clientId: "", clientSecret: ""}),
+        GithubProvider({clientId: process.env.GITHUB_CLIENT_ID, clientSecret: process.env.GITHUB_CLIENT_SECRET}),
+        GoogleProvider({clientId: process.env.GOOLGE_CLIENT_ID, clientSecret: process.env.GOOGLE_CLIENT_SECRET}),
         CredentialsProvider({
             name: "credentials",
             credentials: {
@@ -58,12 +57,35 @@ export const authOptions = {
             }
              // console.log("TOKEN ",token)
             // TODO Returning modified session
-
             // console.log("MODIFIED SESSION:", session); // Debugging session data
             return session
+        },
+        async signIn({account,user,profile}){
+
+        // TODO Check if user logged in fro mGoogle/Github
+            if(account?.provider==="github"|| account?.provider==="google"){
+                // TODO  Check if user saved in DB or not
+            }
+            const newUser=verifyUserExists(user)
+            // TODO
+            if(newUser!==null){
+                user.id=newUser?.id;
+                if(profile&& profile.sub){
+                    profile.sub=newUser.id
+                }
+            }
+            // TODO Must return true
+            // Otherwise we get Permission Error
+            return true
+        },
+        async redirect({}){
+        // TODO  Once we SIgnIn with next auth redirect to this page
+            return "/"
+        },
+        pages:{
+             signIn:"/login"
         }
     }
-
 }
 
 const handler = NextAuth(authOptions)

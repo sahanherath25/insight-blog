@@ -4,14 +4,14 @@ import {NextResponse} from "next/server";
 
 export const GET =async(req,{params})=>{
 
+
     const searchTitle=await new URL(req.url).searchParams.get("title");
 
-
-    console.log("USr" ,searchTitle)
+    console.log("Found Serach Parameter " ,searchTitle)
 
     try {
         await connectToDB()
-        const blog=await prisma.blog.findMany({where:{title:{contains:searchTitle??""}}});
+        const blog=await prisma.blog.findMany({where:{title:{contains:searchTitle??"",mode:"insensitive"}}});
 
         console.log("BLOG FOUND ",blog)
 

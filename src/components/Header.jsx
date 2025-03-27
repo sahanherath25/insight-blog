@@ -1,6 +1,6 @@
 "use client"
 
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import {motion} from "framer-motion";
@@ -45,7 +45,9 @@ function Header() {
                             </Link>
                         )
                     })}
+                    <button onClick={() => signOut()}>Logout</button>
                 </div>
+
             </nav>
         </motion.header>
     );

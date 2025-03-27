@@ -9,6 +9,8 @@ export const POST=async (req)=>{
 
     const {name,email,password}=await req.json()
 
+    console.log("NEW USER GOING TO REGISTER")
+
     if(!name||!email||!password){
         return NextResponse.json({message:"Please enter a valid email"},{status:422})
     }
