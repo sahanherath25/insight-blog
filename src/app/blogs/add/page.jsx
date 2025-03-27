@@ -38,12 +38,12 @@ function AddBlogPage() {
     const [category, setCategory] = useState("category");
     const [categoryData, setCategoryData] = useState("");
 
-    const [editorState, setEditorState] = useState(EditorState.createEmpty())
+    // const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
-    // const [editorState, setEditorState] = useState(()=>{
-    //     console.log("ty",typeof window)
-    //    return  typeof window !== 'undefined' ? EditorState.createEmpty() :
-    // });
+    const [editorState, setEditorState] = useState(()=>{
+        console.log("ty",typeof window)
+       return  typeof window !== 'undefined' ? EditorState.createEmpty() :null
+    });
 
     //
     // const onEditorStateChange = (state) => {
