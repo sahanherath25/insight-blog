@@ -67,20 +67,7 @@ const Hero = () => {
                             Explore Now
                     </Link>
                 </motion.div>
-
             </section>
-
-            {/* Latest Articles Section */}
-            <section id="latest-posts" className="bg-gray-100 py-16">
-                <div className="container mx-auto text-center">
-                    <Typography variant="h3" className="font-bold mb-8">
-                        Latest Blog Posts
-                    </Typography>
-                    <Articles />
-                </div>
-            </section>
-
-            <hr className="my-8" />
         </>
     );
 };
