@@ -8,7 +8,6 @@ async function page() {
 
     const allCategories= await getAllCategories();
 
-
     console.log("DB LOADD ", allCategories);
     // console.log("DB LOADD ", allBlogs);
 
