@@ -33,7 +33,7 @@ function page() {
         toast.loading("Searching ....",{id:"search"})
         try {
 
-            const response = await axios.get(`${NEXT_PUBLIC_API_URL}/api/blogs/search`,{
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/search`,{
                 params:{
                     title:str
                 }

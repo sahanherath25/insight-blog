@@ -4,6 +4,7 @@ import Image from "next/image";
 import {Button} from "@mui/material";
 import axios from "axios";
 import toast from "react-hot-toast";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 const dummyImage="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
@@ -11,7 +12,7 @@ const deleteBlog=async (id)=>{
 
     console.log("WE have the blog id t o delete",id)
     try {
-        const response=await axios.delete(`${NEXT_PUBLIC_API_URL}/api/blogs/${id}`)
+        const response=await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${id}`)
     }catch (e) {
         console.log("ERROR DELETED ",e)
 
