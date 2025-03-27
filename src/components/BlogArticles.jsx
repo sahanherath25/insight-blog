@@ -7,7 +7,7 @@ import {nanoid} from "nanoid";
 import MUICard from "@/components/MUICard";
 import {log} from "next/dist/server/typescript/utils";
 
-function BlogArticles({data}) {
+function BlogArticles({initialBlogs}) {
 
     const [blogs, setBlogs] = useState(initialBlogs || []);
 
