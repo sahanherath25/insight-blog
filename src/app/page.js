@@ -10,20 +10,20 @@ export default  function Home() {
 
     const {data,status}=  useSession()
 
-    if(!data) return null
+    // if(!data) return null
 
-    const {email,name}=data?.user
+    // const {email,name}=data?.user
 
-    if(email&&name){
-        console.log("DATA ",data)
-        console.log("Email ",email)
-        console.log("Name ",name)
-    }
+    // if(email&&name){
+    //     console.log("DATA ",data)
+    //     console.log("Email ",email)
+    //     console.log("Name ",name)
+    // }
 
-    if(!data) return notFound()
+    // if(!data) return notFound()
 
     return (
-        <div className={"basis-1"}>
+        <div className={"basis-1 w-full"}>
             {/*<Logo/>*/}
             <Hero/>
             <Articles/>

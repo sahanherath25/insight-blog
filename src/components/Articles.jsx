@@ -25,12 +25,12 @@ function  Articles() {
     console.log("DATA ",data)
 
     return (
-        <section className={"w-full bg-gray-200"}>
+        <section className={"w-full bg-gray-200 "}>
             <Typography className={"text-center"} variant={"h2"}>Recent Articles </Typography>
 
-            <div className={"blog-container flex mt-3.5 "}>
+            <div className={"blog-container  mt-3.5 w-full "}>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-end gap-6" >
+                <div className="grid w-full  sm:grid-cols-2 lg:grid-cols-4  gap-6 px-4" >
                     {data.length > 0 ? (
                         data.map((item) => (
                             <motion.div
@@ -38,7 +38,7 @@ function  Articles() {
                                 initial={{opacity: 0, y: 20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={{duration: 0.5}}
-                                className="bg-white shadow-lg rounded-lg p-6 flex flex-col"
+                                className="bg-white shadow-lg rounded-lg p-6 w-full "
                             >
                                 <MUICardHome data={item}/>
 

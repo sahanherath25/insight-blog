@@ -16,9 +16,10 @@ import {nanoid} from "nanoid";
 async function ProfilePage(props) {
 
     // const {data: session, status} = useSession();
-
     const sessionData=await getServerSession(authOptions);
     const userData=await getUserById(sessionData.user.id)
+
+    if(userData && sessionData) return
 
     const blogs=userData?.blogs
 
@@ -30,6 +31,7 @@ async function ProfilePage(props) {
 
         <section className={" grid  grid-cols-1 w-full grow "}>
             <h2>You are in the Profile Page</h2>
+            <h2>You are Logged In As {sessionData.user.name}</h2>
             <div className={"image-container"}>
                 <Image
                     src={"https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
@@ -39,14 +41,18 @@ async function ProfilePage(props) {
 
             </div>
 
-            <div className=" grid w-full ">
-                <h3 className={"text-center"}>My Blogs</h3>
-                <div className={"blog-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 border border-green-600"}>
-                    {blogs.map((blog)=>{
-                        return <BlogItem blog={blog} key={nanoid(5)}/>
-                    })}
+            {blogs&& (
+                <div className=" grid w-full ">
+                    <h3 className={"text-center"}>My Blogs</h3>
+                    <div
+                        className={"blog-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 border border-green-600"}>
+                        {blogs.map((blog) => {
+                            return <BlogItem blog={blog} key={nanoid(5)}/>
+                        })}
+                    </div>
                 </div>
-            </div>
+            )}
+
 
         </section>
     )

@@ -15,7 +15,6 @@ import { Editor } from "react-draft-wysiwyg";
 import {useSession} from "next-auth/react";
 import toast from 'react-hot-toast';
 import axios from "axios";
-import {revalidatePath} from "next/cache";
 
 
 // const Editor = dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), {ssr: false});

@@ -18,7 +18,6 @@ export const getLatestBlogs = async () => {
         cache: 'no-cache'
     });
 
-
     console.log("resposne data", response.data.data)
 
     const latestBlogs = response.data.data.sort((a, b) => {
@@ -64,11 +63,33 @@ export const getAllCategories = async () => {
 
 export const getUserById = async (id) => {
 
-    const response = await axios.get(`http://localhost:3000/api/users/${id}`, {
-        cache: 'no-cache'
-    });
+    try {
+        const response = await axios.get(`http://localhost:3000/api/users/${id}`, {
+            cache: 'no-cache'
+        });
 
-    console.log("resposne data", response.data)
-    return response.data.data
+        console.log("resposne data", response.data)
+        return response.data.data
+    }catch (e) {
+
+        console.log("ERROR ",e)
+    }
+
+}
+
+export const getBlogDetailById = async (id) => {
+
+    try {
+        const response = await axios.get(`http://localhost:3000/api/blogs/${id}`, {
+            cache: 'no-cache'
+        });
+
+        console.log("resposne data", response.data)
+        return response.data.data
+    }catch (e) {
+
+        console.log("ERROR ",e)
+    }
+
 }
 
