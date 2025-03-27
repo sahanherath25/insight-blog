@@ -7,20 +7,45 @@ import {nanoid} from "nanoid";
 import MUICard from "@/components/MUICard";
 import {log} from "next/dist/server/typescript/utils";
 
-function BlogArticles() {
+function BlogArticles({data}) {
 
-    const [data, setData] = useState([]);
+    const [blogs, setBlogs] = useState(initialBlogs || []);
 
+    // Only fetch on client if no initial data
     useEffect(() => {
-        console.log("Only render at Initial Render")
-        async function fetchData() {
-            const result = await actions.getAllBlogs();
-            setData(result);
-        }
+        if (initialBlogs && initialBlogs.length > 0) return;
 
+        const fetchData = async () => {
+            try {
+                const result = await getAllBlogs();
+                setBlogs(result);
+            } catch (error) {
+                console.error("Failed to fetch blogs:", error);
+            }
+        };
         fetchData();
+    }, [initialBlogs]);
 
-    }, []);
+    // const [data, setData] = useState(data || []);
+
+    // const [data, setData] = useState([]);
+    //
+    // useEffect(() => {
+    //     getAllBlogs().then(setData);
+    // }, []);
+
+    // const [data, setData] = useState([]);
+
+    // useEffect(() => {
+    //     console.log("Only render at Initial Render")
+    //     async function fetchData() {
+    //         const result = await actions.getAllBlogs();
+    //         setData(result);
+    //     }
+    //
+    //     fetchData();
+    //
+    // }, []);
 
 
 
@@ -31,8 +56,8 @@ function BlogArticles() {
             <div className={"blog-container grid justify-stretch justify-items-center  mt-3.5 "}>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center gap-6" >
-                    {data.length > 0 ? (
-                        data.map((item) => (
+                    {blogs.length > 0 ? (
+                        blogs.map((item) => (
 
                             <motion.div
                                 key={nanoid(5)}

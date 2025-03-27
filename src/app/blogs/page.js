@@ -6,7 +6,12 @@ export const dynamic = 'force-dynamic';
 
 async function page() {
 
-    const allCategories= await getAllCategories();
+    // const allCategories= await getAllCategories();
+
+    const [allCategories, allBlogs] = await Promise.all([
+        getAllCategories(),
+        getAllBlogs()
+    ]);
 
     console.log("DB LOADD ", allCategories);
     // console.log("DB LOADD ", allBlogs);
@@ -15,7 +20,7 @@ async function page() {
         <div className={"grow"}>
             <p>Hello This is my Page Component</p>
             <BlogCategories data={allCategories}/>
-            <BlogArticles />
+            <BlogArticles initialBlogs={allBlogs} />
             {/*<Blogs data={myBlogData}/>*/}
         </div>
     );
