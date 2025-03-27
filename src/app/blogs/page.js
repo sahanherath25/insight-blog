@@ -2,6 +2,7 @@ import BlogCategories from "@/components/BlogCategories";
 import {getAllBlogs, getAllCategories} from "@/app/actions/server/actions";
 import BlogArticles from "@/components/BlogArticles";
 
+export const dynamic = 'force-dynamic';
 
 async function page() {
 
@@ -22,3 +23,5 @@ async function page() {
 }
 
 export default page;
+
+// export const dynamic = 'force-dynamic';
