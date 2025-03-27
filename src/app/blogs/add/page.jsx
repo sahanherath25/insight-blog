@@ -11,7 +11,7 @@ import draftjsToHtml from "draftjs-to-html"
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import {EditorState, convertToRaw} from "draft-js"
-import { Editor } from "react-draft-wysiwyg";
+// import { Editor } from "react-draft-wysiwyg";
 import {useSession} from "next-auth/react";
 import toast from 'react-hot-toast';
 import axios from "axios";
@@ -40,10 +40,10 @@ function AddBlogPage() {
 
     // const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
-    const [editorState, setEditorState] = useState(()=>{
-        console.log("ty",typeof window)
-       return  typeof window !== 'undefined' ? EditorState.createEmpty() :null
-    });
+    // const [editorState, setEditorState] = useState(()=>{
+    //     console.log("ty",typeof window)
+    //    return  typeof window !== 'undefined' ? EditorState.createEmpty() :null
+    // });
 
     //
     // const onEditorStateChange = (state) => {
@@ -56,7 +56,7 @@ function AddBlogPage() {
     // }, []);
 
 
-    console.log("SET STATE ",editorState);
+    // console.log("SET STATE ",editorState);
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -155,10 +155,10 @@ function AddBlogPage() {
     }
 
 
-    const onEditorStateChange = (e) => {
-        console.log("EDITOR STATE ", e)
-        setEditorState(e)
-    }
+    // const onEditorStateChange = (e) => {
+    //     console.log("EDITOR STATE ", e)
+    //     setEditorState(e)
+    // }
 
 
 
@@ -285,21 +285,21 @@ function AddBlogPage() {
 
                 <div className={"textEditor"}>
 
-                        <Editor
-                            editorStyle={{
-                                minHeight: "50vh",
-                                width: "100",
-                                height: "auto",
-                                border: "2px solid black",
-                            }}
-                            toolbarClassName="toolbarClassName"
-                            wrapperClassName="wrapperClassName"
-                            editorClassName="editorClassName"
-                            // onContentStateChange={onEditorStateChange}
-                            onEditorStateChange={onEditorStateChange}
-                            editorState={editorState}
+                        {/*<Editor*/}
+                        {/*    editorStyle={{*/}
+                        {/*        minHeight: "50vh",*/}
+                        {/*        width: "100",*/}
+                        {/*        height: "auto",*/}
+                        {/*        border: "2px solid black",*/}
+                        {/*    }}*/}
+                        {/*    toolbarClassName="toolbarClassName"*/}
+                        {/*    wrapperClassName="wrapperClassName"*/}
+                        {/*    editorClassName="editorClassName"*/}
+                        {/*    // onContentStateChange={onEditorStateChange}*/}
+                        {/*    onEditorStateChange={onEditorStateChange}*/}
+                        {/*    editorState={editorState}*/}
 
-                        />
+                        {/*/>*/}
 
 
 
