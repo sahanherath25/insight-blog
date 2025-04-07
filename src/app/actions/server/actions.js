@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAllBlogs = async () => {
 
-    const response = await axios.get(`http://localhost:3000/api/blogs`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`, {
         cache: 'no-cache',
 
     });
@@ -13,7 +13,7 @@ export const getAllBlogs = async () => {
 
 export const getLatestBlogs = async () => {
 
-    const response = await axios.get(`http://localhost:3000/api/blogs`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`, {
         cache: 'no-cache'
     });
 
