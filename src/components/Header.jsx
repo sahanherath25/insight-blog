@@ -45,7 +45,10 @@ function Header() {
                             </Link>
                         )
                     })}
-                    <button onClick={() => signOut()}>Logout</button>
+                    {
+                        status === "authenticated" && <button onClick={() => signOut()}>Logout</button>
+                    }
+
                 </div>
 
             </nav>

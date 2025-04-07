@@ -27,9 +27,6 @@ export default  function Home() {
             {/*<Logo/>*/}
             <Hero/>
             <Articles/>
-            {/*<h1>My Main Page Hello</h1>*/}
-            {/*<h2>User Email     {email?email:null}</h2>*/}
-            {/*<h2>User Logged In {name?name:null}</h2>*/}
         </div>
     );
 }

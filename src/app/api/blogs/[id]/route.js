@@ -33,7 +33,6 @@ export const PUT =async(req,{params})=>{
 
     console.log("TITLE ",title)
     console.log("Description ",description)
-
     if(!title||!description){
         return NextResponse.json({message:"Please Provide title and Description to update"},{status:404})
     }

@@ -4,14 +4,9 @@ import {PrismaClient}  from "@prisma/client"
 
 //Creating customized Prisma Client
 
-
-
 // User regular client for dev
-
 let prisma;
-
 // console.log("ENV ",process.env.NODE_ENV);
-
 if(process.env.NODE_ENV === "production") {
     // TODO Create brand new Client
     prisma = new PrismaClient();

@@ -4,7 +4,7 @@ import * as actions from "@/app/actions/server/actions";
 import {nanoid} from "nanoid";
 import { motion } from "framer-motion";
 
-import {Button, Typography} from "@mui/material";
+import {Button, CircularProgress, Typography} from "@mui/material";
 import MUICard from "@/components/MUICard";
 import {getLatestBlogs} from "@/app/actions/server/actions";
 import MUICardHome from "@/components/MUICardHome";
@@ -23,6 +23,14 @@ function  Articles() {
     }, []);
     //
     console.log("DATA ",data)
+
+    if(!data) {
+       return (
+           <div className={"w-full h-screen"}>
+               <CircularProgress color="success"/>
+           </div>
+       )
+    }
 
     return (
         <section className={"w-full bg-gray-200 "}>
@@ -45,7 +53,7 @@ function  Articles() {
                             </motion.div>
                         ))
                     ) : (
-                        <div className="col-span-full text-center text-gray-600">No articles available</div>
+                        <div className=" bg-red-200 col-span-full text-center text-gray-600 p-8"><CircularProgress size={50} color="success"/></div>
                     )}
                 </div>
 
