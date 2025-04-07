@@ -1,11 +1,12 @@
 import prisma from "../../prisma";
+import colors from "colors/safe";
 
 
 export const connectToDB=async ()=>{
 
     try {
         await prisma.$connect();
-        console.log("Connected to DB");
+        console.log(colors.green("Connected to DB"));
     }catch (e) {
         console.error("Error connecting to DB",e);
         throw new Error("Failed to connect to DB");

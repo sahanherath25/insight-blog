@@ -1,7 +1,7 @@
 import React from 'react';
 import { redirect } from "next/navigation";
 import theme from "@/theme";
-import { Button, Card, CardActions, CardContent, CardMedia, Typography, Grid } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography, Grid,Box } from "@mui/material";
 
 function MUICardHome({ data }) {
 
@@ -17,7 +17,7 @@ function MUICardHome({ data }) {
             <Card sx={{
                 display: "flex",
                 flexDirection: "column",
-                height: "100%", // Ensure the cards have the same height
+                minHeight: "450px", // Ensure the cards have the same height
                 boxShadow: 3,
                 borderRadius: 2,
                 bgcolor: "background.paper",
@@ -25,6 +25,7 @@ function MUICardHome({ data }) {
                 <CardMedia
                     component="img"
                     sx={{
+                        width: "100%",
                         height: 200,
                         objectFit: "cover",
                         borderTopLeftRadius: 2,
@@ -33,14 +34,22 @@ function MUICardHome({ data }) {
                     image={data.imageUrl}
                     alt="Random Image"
                 />
-                <CardContent sx={{ flexGrow: 1 }}>
+                <CardContent sx={{ flexGrow: 1 ,overflow: "hidden"}}>
                     <Typography gutterBottom variant="h5" sx={{ fontSize: "1.2rem" }}>
                         {data.title}
                     </Typography>
-                    <Typography
-                        variant="body2"
+                    <Box
+                        className="clamp-box"
+                        component="div"
                         color="text.secondary"
-                        sx={{ height: "3rem", overflow: "hidden", textOverflow: "ellipsis" }} // Ensures text doesn't overflow
+                        sx={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3, // Show only 3 lines
+                            WebkitBoxOrient: 'vertical',
+                            maxWidth:"100%",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                    }} // Ensures text doesn't overflow
                         dangerouslySetInnerHTML={{ __html: data.description }}
                     />
                 </CardContent>

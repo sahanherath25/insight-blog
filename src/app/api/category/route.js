@@ -1,5 +1,6 @@
 import {connectToDB} from "@/lib/helpers";
 import prisma from "@/prisma";
+
 import {NextResponse} from "next/server";
 
 export const GET=async()=>{
@@ -25,9 +26,6 @@ export const GET=async()=>{
    }
 
 }
-
-
-
 
 
 export const POST =async(req)=>{

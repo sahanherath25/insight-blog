@@ -33,6 +33,8 @@ import cloudinary from "cloudinary"
 
 export const POST = async (req) => {
 
+    console.log()
+
     cloudinary.v2.config(
         {
             cloud_name: process.env.CLOUDINARY_NAME,
@@ -124,6 +126,7 @@ export const GET =async()=>{
         prisma.$disconnect();
     }
 }
+
 
 // export const GET =async()=>{
 //     try {

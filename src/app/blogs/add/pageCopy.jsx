@@ -1,7 +1,8 @@
 "use client"
-
+import dynamic from 'next/dynamic';
 import React, {useEffect, useState} from 'react';
 import {Button, TextField, Select, MenuItem, InputLabel, FormControl} from "@mui/material";
+
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Image from "next/image";
 import {getAllCategories} from "@/app/actions/server/actions";
@@ -10,27 +11,27 @@ import draftjsToHtml from "draftjs-to-html"
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import {EditorState, convertToRaw} from "draft-js"
-
+// import { Editor } from "react-draft-wysiwyg";
 import {useSession} from "next-auth/react";
 import toast from 'react-hot-toast';
 import axios from "axios";
-import {useEditor, EditorContent} from "@tiptap/react";
 
-import {Editor} from '@tiptap/core'
-import {StarterKit} from "@tiptap/starter-kit";
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import Heading from '@tiptap/extension-heading'
-import TextStyle from "@tiptap/extension-text-style";
-import {MenuBar} from "@/components/MenuBar";
-// import {revalidatePath} from "next/cache";
+// export const dynamic="force-dynamic"
 
-// const myEditor=new Editor({
-//     element: document.querySelector('.element'),
-//     extensions: [Document, Paragraph, Text],
-// })
+// const Editor = dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), {ssr: false});
 
+// const Editor = dynamic(
+//     () => import("react-draft-wysiwyg")
+//     { ssr: false }
+// );
+
+const Editor = dynamic(
+    () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+    {
+        ssr: false,
+        loading: () => <p>Loading editor...</p> // Add loading state
+    }
+);
 
 function AddBlogPage() {
 
@@ -46,34 +47,32 @@ function AddBlogPage() {
     const [categoryData, setCategoryData] = useState("");
     const [isMounted, setIsMounted] = useState(false);
     const [editorState, setEditorState] = useState(null);
-    const [content, setContent] = useState('')
 
+    // useEffect(() => {
+    //     // Initialize editor state only on client side
+    //     if (typeof window !== 'undefined') {
+    //         setEditorState(EditorState.createEmpty());
+    //     }
+    // }, []);
 
-    const editor = useEditor({
-        extensions: [
-            StarterKit.configure({
-                heading: {
-                    levels: [1, 2, 3],
-                }
-            }),
-            Document,
-            TextStyle,
-            Paragraph,
-            Text,
-            Heading.configure({
-                levels: [1, 2, 3],
-            }),], // Add StarterKit for basic features
-        editorProps: {
-            attributes: {
-                class: "min-h-[156px] border rounded-md bg-slate-50 py-2 px-3"
-            }
-        },
-        content: '<p>Start writing your blog post here...</p>',
-        onUpdate: ({editor}) => {
-            setContent(editor.getHTML()); // Updates content on change
-        },
-    });
+    useEffect(() => {
+        setIsMounted(true);
+        return () => setIsMounted(false);
+    }, []);
 
+    useEffect(() => {
+        if (isMounted) {
+            // This will only run after component is mounted
+            setEditorState(EditorState.createEmpty());
+        }
+    }, [isMounted]);
+
+    // const [editorState, setEditorState] = useState(EditorState.createEmpty())
+
+    // const [editorState, setEditorState] = useState(()=>{
+    //     console.log("ty",typeof window)
+    //    return  typeof window !== 'undefined' ? EditorState.createEmpty() :null
+    // });
 
     //
     // const onEditorStateChange = (state) => {
@@ -122,12 +121,12 @@ function AddBlogPage() {
                 setCategoryData(response)
             }
         }
+
         getCategories();
 
     }, []);
 
-    console.log("CATEGORY   ", categoryData)
-    console.log("CATEGORY Selected  ", category)
+    // console.log("CATEGORY Selected  ", category)
 
     console.log(imageUrl);
 
@@ -143,11 +142,7 @@ function AddBlogPage() {
         const selectedCategory = categoryData.find((item) => {
             return item.name === category;
         })
-        const contentOnEditor = content;
-
-        console.log("UISER ID ",session.user)
-
-        console.log("EDITOR CONTENT ",contentOnEditor)
+        const contentOnEditor = convertEditorDataToHTML();
 
         const myData = {
             userId: session.user.id,
@@ -156,8 +151,6 @@ function AddBlogPage() {
             description: contentOnEditor,
             categoryId: selectedCategory.id
         }
-
-
 
         const formData = new FormData();
 
@@ -172,7 +165,7 @@ function AddBlogPage() {
 
 
         try {
-            toast.loading("Sending Data....", {id: "postData"})
+            toast.loading("Sending your Data to the Database ", {id: "postData"})
 
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`, formData, {
                 headers: {
@@ -181,8 +174,8 @@ function AddBlogPage() {
             })
 
             toast.success("Blog post submitted successfully ", {id: "postData"})
-            // revalidatePath("/")
-            // revalidatePath("/blogs")
+            revalidatePath("/")
+            revalidatePath("/blogs")
 
         } catch (e) {
             // toast.error("Error Occurred when Sending the Data   ",{id:"postData"})
@@ -317,27 +310,23 @@ function AddBlogPage() {
 
                 </div>
 
-                <div className={"textEditor max-w-3xl mt-4 "}>
+                <div className={"textEditor"}>
 
-                    {/*<Editor*/}
-                    {/*    editorStyle={{*/}
-                    {/*        minHeight: "50vh",*/}
-                    {/*        width: "100",*/}
-                    {/*        height: "auto",*/}
-                    {/*        border: "2px solid black",*/}
-                    {/*    }}*/}
-                    {/*    toolbarClassName="toolbarClassName"*/}
-                    {/*    wrapperClassName="wrapperClassName"*/}
-                    {/*    editorClassName="editorClassName"*/}
-                    {/*    // onContentStateChange={onEditorStateChange}*/}
-                    {/*    onEditorStateChange={onEditorStateChange}*/}
-                    {/*    editorState={editorState}*/}
+                    <Editor
+                        editorStyle={{
+                            minHeight: "50vh",
+                            width: "100",
+                            height: "auto",
+                            border: "2px solid black",
+                        }}
+                        toolbarClassName="toolbarClassName"
+                        wrapperClassName="wrapperClassName"
+                        editorClassName="editorClassName"
+                        // onContentStateChange={onEditorStateChange}
+                        onEditorStateChange={onEditorStateChange}
+                        editorState={editorState}
 
-                    {/*/>*/}
-                    {/*<EditorContent editor={editor} />*/}
-
-                    <MenuBar editor={editor}/>
-                    {editor && <EditorContent editor={editor} onChange={onEditorStateChange}/>}
+                    />
 
 
                 </div>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAllBlogs = async () => {
 
-    const response = await axios.get(`/api/blogs`, {
+    const response = await axios.get(`http://localhost:3000/api/blogs`, {
         cache: 'no-cache',
 
     });
@@ -13,7 +13,7 @@ export const getAllBlogs = async () => {
 
 export const getLatestBlogs = async () => {
 
-    const response = await axios.get(`/api/blogs`, {
+    const response = await axios.get(`http://localhost:3000/api/blogs`, {
         cache: 'no-cache'
     });
 
@@ -38,7 +38,7 @@ export const getAllCategories = async () => {
 
     console.log("CAlling Get Methods for CAtegory")
 
-    const response = await axios.get(`/api/category`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/category`, {
         cache: 'no-cache'
     });
 
@@ -63,7 +63,7 @@ export const getAllCategories = async () => {
 export const getUserById = async (id) => {
 
     try {
-        const response = await axios.get(`/api/users/${id}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`, {
             cache: 'no-cache'
         });
 
@@ -79,7 +79,7 @@ export const getUserById = async (id) => {
 export const getBlogDetailById = async (id) => {
 
     try {
-        const response = await axios.get(`/api/blogs/${id}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${id}`, {
             cache: 'no-cache'
         });
 

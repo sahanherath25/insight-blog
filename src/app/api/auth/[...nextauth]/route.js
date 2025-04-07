@@ -35,6 +35,7 @@ export const authOptions = {
                     if (!isPasswordMatch) {
                         return null
                     }
+                    console.log("USER  FOUND LOGIN ",user)
 
                     return {...user, id: user.id}
 
@@ -65,15 +66,18 @@ export const authOptions = {
         // TODO Check if user logged in fro mGoogle/Github
             if(account?.provider==="github"|| account?.provider==="google"){
                 // TODO  Check if user saved in DB or not
-            }
-            const newUser=verifyUserExists(user)
-            // TODO
-            if(newUser!==null){
-                user.id=newUser?.id;
-                if(profile&& profile.sub){
-                    profile.sub=newUser.id
+                const newUser=await verifyUserExists(user)
+
+                // TODO Exist get the userID from DB and Assign
+                if(newUser!==null){
+                    user.id=newUser?.id;
+                    if(profile&& profile.sub){
+                        profile.sub=newUser.id
+                        console.log("PROFILE SUB", profile.sub)
+                    }
                 }
             }
+
             // TODO Must return true
             // Otherwise we get Permission Error
             return true
